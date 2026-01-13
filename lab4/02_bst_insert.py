@@ -12,31 +12,34 @@ class BST:
         if self.root is None:
             self.root = BSTNode(data)
         else:
-            self._insert_recursive(self.root, data)
-
-    def _insert_recursive(self, node: BSTNode, data: int):
-        if data < node.data:
-            if node.left is None:
-                node.left = BSTNode(data)
-            else:
-                self._insert_recursive(node.left, data)
-        else:
-            if node.right is None:
-                node.right = BSTNode(data)
-            else:
-                self._insert_recursive(node.right, data)
+            def _insert(current_node: BSTNode, data: int):
+                # If the data is less than current node
+                if (data < current_node.data):
+                    # Then check if the left branch is empty
+                    if current_node.left is None:
+                        # If so, set the left branch to this node
+                        current_node.left = BSTNode(data)
+                    else:
+                        # Else, traverse that branch
+                        _insert(current_node.left, data)
+                else:
+                    # Same for the right side
+                    if current_node.right is None:
+                        current_node.right = BSTNode(data)
+                    else:
+                        _insert(current_node.right, data)
+            _insert(self.root, data)
 
     def preorder(self):
-        values = []
-
+        # Print current data, then traverse left & right
         def traverse(node: BSTNode):
             if node is not None:
-                values.append(str(node.data))
+                print("->", node.data, end=" ")
                 traverse(node.left)
                 traverse(node.right)
-
+        # Start from root
         traverse(self.root)
-        print("-> " + " -> ".join(values))
+        print() # Final newline
 
 def main():
   my_bst = BST()
