@@ -1,3 +1,6 @@
+def order_of(seat):
+    return ord(seat[0]) * 1000 + int(seat[1:])
+
 def bubble_sort(lst, last):
     current = 0
     sorted_flag = False
@@ -11,7 +14,7 @@ def bubble_sort(lst, last):
         # loop (walker > current)
         while walker > current:
             total_comparisons += 1
-            if lst[walker] < lst[walker - 1]:
+            if order_of(lst[walker]) < order_of(lst[walker - 1]):
                 sorted_flag = False
 
                 # exchange (walker, walker-1)
